@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Term Insurance Calculator</title>
+  <style>
+    body { font-family: Arial; padding: 20px; max-width: 400px; margin: auto; }
+    input { width: 100%; padding: 8px; margin: 5px 0; }
+    button { padding: 10px; background: #00D084; color: white; border: none; width: 100%; }
+  </style>
+</head>
+<body>
+  <h2>Term Insurance Cover Calculator</h2>
+  <label>Current Age</label>
+  <input type="number" id="age" min="18" max="65" />
+
+  <label>Cover Required Till (Age)</label>
+  <input type="number" id="tillAge" min="40" max="85" />
+
+  <label>Monthly Household Expenses (₹)</label>
+  <input type="number" id="expenses" />
+
+  <label>Outstanding Loans (₹)</label>
+  <input type="number" id="loans" />
+
+  <button onclick="calculate()">Calculate Cover</button>
+
+  <h3 id="result"></h3>
+
+  <script>
+    function calculate() {
+      const age = parseInt(document.getElementById('age').value);
+      const tillAge = parseInt(document.getElementById('tillAge').value);
+      const expenses = parseFloat(document.getElementById('expenses').value);
+      const loans = parseFloat(document.getElementById('loans').value);
+
+      const years = tillAge - age;
+      if (years <= 0) {
+        document.getElementById('result').innerText = "Invalid age inputs.";
+        return;
+      }
+
+      const futureExpenses = expenses * 12 * years * 0.7; // Assuming 70% of expenses need to be covered
+      const cover = futureExpenses + loans;
+
+      document.getElementById('result').innerText = 
+        `Suggested Term Insurance Cover: ₹${cover.toLocaleString('en-IN')}`;
+    }
+  </script>
+</body>
+</html>
